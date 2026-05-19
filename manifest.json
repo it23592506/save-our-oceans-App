@@ -1,0 +1,31 @@
+{
+    "name": "Save The Sea 2.0 - KDU Student Chapter",
+    "short_name": "SaveTheSea",
+    "description": "Mobile app promoting ocean conservation through awareness, eco-friendly habits, and inspiring action",
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#3498db",
+    "background_color": "#ffffff",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%233498db'/%3E%3Cpath d='M25 50 Q35 40, 45 50 T65 50 Q75 60, 85 50' stroke='white' stroke-width='3' fill='none'/%3E%3Ccircle cx='35' cy='35' r='3' fill='white'/%3E%3Ccircle cx='65' cy='35' r='3' fill='white'/%3E%3C/svg%3E",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        },
+        {
+            "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%233498db'/%3E%3Cpath d='M25 50 Q35 40, 45 50 T65 50 Q75 60, 85 50' stroke='white' stroke-width='3' fill='none'/%3E%3Ccircle cx='35' cy='35' r='3' fill='white'/%3E%3Ccircle cx='65' cy='35' r='3' fill='white'/%3E%3C/svg%3E",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ],
+    "categories": ["education", "lifestyle", "social"],
+    "screenshots": [
+        {
+            "src": "/screenshot1.png",
+            "sizes": "720x1280",
+            "type": "image/png",
+            "form_factor": "narrow"
+        }
+    ]
+}

@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaveTheSea 2.0 - Ocean Conservation App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="mobile-styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0066cc">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-content">
+                <div class="kdu-branding">
+                    <div class="kdu-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>KDU Faculty of Computing</h3>
+                    <p>In collaboration with SaveTheSea 2.0</p>
+                </div>
+                <div class="loading-animation">
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                    <div class="wave"></div>
+                </div>
+                <p class="loading-text">Protecting Our Oceans...</p>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="login-page" class="page active">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="app-logo">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h1>SaveTheSea 2.0</h1>
+                    <p>Join the ocean conservation movement</p>
+                </div>
+                <form class="auth-form" onsubmit="login(event)">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="password" placeholder="Enter your password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="remember">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                        <a href="#" class="forgot-link" onclick="showPage('forgot-page')">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="auth-button primary">
+                        <span>Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+                <div class="social-auth">
+                    <button class="social-button google" onclick="socialLogin('google')">
+                        <i class="fab fa-google"></i>
+                        <span>Continue with Google</span>
+                    </button>
+                    <button class="social-button facebook" onclick="socialLogin('facebook')">
+                        <i class="fab fa-facebook"></i>
+                        <span>Continue with Facebook</span>
+                    </button>
+                </div>
+                <div class="auth-footer">
+                    <p>Don't have an account? <a href="#" onclick="showPage('signup-page')">Sign Up</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sign Up Page -->
+        <div id="signup-page" class="page">
+            <div class="auth-container">
+                <div class="page-header">
+                    <button class="back-button" onclick="showPage('login-page')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1>Create Account</h1>
+                </div>
+                <form class="auth-form" onsubmit="signup(event)">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-user input-icon"></i>
+                            <input type="text" id="fullName" placeholder="Full Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="signupEmail" placeholder="Email Address" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-phone input-icon"></i>
+                            <input type="tel" id="phone" placeholder="Phone Number" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-map-marker-alt input-icon"></i>
+                            <select id="location" required>
+                                <option value="">Select Your Location</option>
+                                <option value="colombo">Colombo</option>
+                                <option value="gampaha">Gampaha</option>
+                                <option value="kalutara">Kalutara</option>
+                                <option value="galle">Galle</option>
+                                <option value="matara">Matara</option>
+                                <option value="hambantota">Hambantota</option>
+                                <option value="jaffna">Jaffna</option>
+                                <option value="kilinochchi">Kilinochchi</option>
+                                <option value="mannar">Mannar</option>
+                                <option value="puttalam">Puttalam</option>
+                                <option value="trincomalee">Trincomalee</option>
+                                <option value="batticaloa">Batticaloa</option>
+                                <option value="ampara">Ampara</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="signupPassword" placeholder="Create Password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('signupPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock input-icon"></i>
+                            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" id="terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#" onclick="openModal('terms-modal')">Terms & Conditions</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="auth-button primary">
+                        <span>Create Account</span>
+                        <i class="fas fa-user-plus"></i>
+                    </button>
+                </form>
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="#" onclick="showPage('login-page')">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forgot Password Page -->
+        <div id="forgot-page" class="page">
+            <div class="auth-container">
+                <div class="page-header">
+                    <button class="back-button" onclick="showPage('login-page')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1>Reset Password</h1>
+                </div>
+                <div class="forgot-content">
+                    <div class="forgot-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <p>Enter your email address and we'll send you a link to reset your password.</p>
+                </div>
+                <form class="auth-form" onsubmit="forgotPassword(event)">
+                    <div class="form-group">
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope input-icon"></i>
+                            <input type="email" id="forgotEmail" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="auth-button primary">
+                        <span>Send Reset Link</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Home Page -->
+        <div id="home-page" class="page">
+            <div class="home-header">
+                <div class="header-top">
+                    <div class="user-greeting">
+                        <h2>Hello, Ocean Guardian!</h2>
+                        <p>Let's protect our seas together</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="notification-btn" onclick="openModal('notifications-modal')">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <button class="settings-btn" onclick="openModal('settings-modal')">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="stats-summary">
+                    <div class="stat-item">
+                        <i class="fas fa-flag"></i>
+                        <div class="stat-info">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Reports Made</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-users"></i>
+                        <div class="stat-info">
+                            <span class="stat-number">156</span>
+                            <span class="stat-label">Community Points</span>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-trophy"></i>
+                        <div class="stat-info">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Badges Earned</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="home-content">
+                <!-- Quick Actions -->
+                <div class="section">
+                    <h3 class="section-title">Quick Actions</h3>
+                    <div class="quick-actions">
+                        <div class="action-card" onclick="showPage('report-page')">
+                            <div class="action-icon report">
+                                <i class="fas fa-flag"></i>
+                            </div>
+                            <h4>Report Pollution</h4>
+                            <p>Report ocean pollution incidents</p>
+                        </div>
+                        <div class="action-card" onclick="showPage('facts-page')">
+                            <div class="action-icon learn">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4>Daily Facts</h4>
+                            <p>Learn about ocean conservation</p>
+                        </div>
+                        <div class="action-card" onclick="showPage('quiz-page')">
+                            <div class="action-icon quiz">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h4>Take Quiz</h4>
+                            <p>Test your ocean knowledge</p>
+                        </div>
+                        <div class="action-card" onclick="showPage('campaigns-page')">
+                            <div class="action-icon campaign">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h4>Campaigns</h4>
+                            <p>Join conservation campaigns</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Content -->
+                <div class="section">
+                    <div class="section-header">
+                        <h3 class="section-title">Featured Today</h3>
+                        <button class="see-all-btn" onclick="showPage('articles-page')">See All</button>
+                    </div>
+                    <div class="featured-content">
+                        <div class="featured-card" onclick="openArticle('turtle-conservation')">
+                            <div class="featured-image turtle-bg">
+                                <div class="featured-overlay">
+                                    <div class="featured-badge">Trending</div>
+                                </div>
+                            </div>
+                            <div class="featured-info">
+                                <h4>Sea Turtle Conservation in Sri Lanka</h4>
+                                <p>Learn about protecting our endangered sea turtles</p>
+                                <div class="featured-meta">
+                                    <span><i class="fas fa-clock"></i> 5 min read</span>
+                                    <span><i class="fas fa-eye"></i> 2.4k views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="section">
+                    <h3 class="section-title">Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon success">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Report Verified</h4>
+                                <p>Your plastic pollution report was verified by authorities</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon info">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Joined Beach Cleanup Campaign</h4>
+                                <p>You joined the "Clean Beaches Colombo" campaign</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon quiz">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Quiz Champion</h4>
+                                <p>Scored 100% on Ocean Conservation Quiz</p>
+                                <span class="activity-time">3 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facts Page -->
+        <div id="facts-page" class="page">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('home-page')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Ocean Facts</h1>
+                <div class="header-actions">
+                    <button class="share-button">
+                        <i class="fas fa-share"></i>
+                    </button>
+                    <button class="bookmark-button">
+                        <i class="far fa-bookmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="facts-content">
+                <div class="fact-of-day">
+                    <div class="fact-header">
+                        <div class="fact-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="fact-title">
+                            <h3>Fact of the Day</h3>
+                            <p>December 15, 2024</p>
+                        </div>
+                    </div>
+                    <div class="fact-card featured">
+                        <div class="fact-image ocean-bg">
+                            <div class="fact-overlay">
+                                <i class="fas fa-globe-asia"></i>
+                            </div>
+                        </div>
+                        <div class="fact-content">
+                            <h4>Ocean Coverage</h4>
+                            <p>The ocean covers more than 70% of Earth's surface and contains 99% of the living space on our planet. It produces over 50% of the world's oxygen!</p>
+                            <div class="fact-stats">
+                                <div class="stat">
+                                    <span class="stat-number">70%</span>
+                                    <span class="stat-label">Earth's Surface</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">99%</span>
+                                    <span class="stat-label">Living Space</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-number">50%</span>
+                                    <span class="stat-label">World's Oxygen</span>
+                                </div>
+                            </div>
+                            <div class="fact-actions">
+                                <button class="fact-action-btn" onclick="shareFact('ocean-coverage')">
+                                    <i class="fas fa-share"></i>
+                                    Share
+                                </button>
+                                <button class="fact-action-btn" onclick="likeFact('ocean-coverage')">
+                                    <i class="fas fa-heart"></i>
+                                    2.4k
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="facts-grid">
+                    <div class="fact-card" onclick="expandFact('turtle-species')">
+                        <div class="fact-icon turtle">
+                            <i class="fas fa-turtle"></i>
+                        </div>
+                        <h4>Sri Lankan Sea Turtles</h4>
+                        <p>Sri Lanka is home to 5 of the world's 7 sea turtle species, making it a critical nesting site.</p>
+                        <div class="fact-meta">
+                            <span><i class="fas fa-eye"></i> 1.8k views</span>
+                            <span><i class="fas fa-heart"></i> 156 likes</span>
+                        </div>
+                    </div>
+
+                    <div class="fact-card" onclick="expandFact('plastic-pollution')">
+                        <div class="fact-icon pollution">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <h4>Plastic Impact</h4>
+                        <p>Over 700 marine species are affected by plastic pollution. Sea turtles often mistake plastic bags for jellyfish.</p>
+                        <div class="fact-meta">
+                            <span><i class="fas fa-eye"></i> 2.1k views</span>
+                            <span><i class="fas fa-heart"></i> 203 likes</span>
+                        </div>
+                    </div>
+
+                    <div class="fact-card" onclick="expandFact('coral-reefs')">
+                        <div class="fact-icon coral">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h4>Coral Reef Biodiversity</h4>
+                        <p>Coral reefs support 25% of all marine life while covering less than 1% of the ocean floor.</p>
+                        <div class="fact-meta">
+                            <span><i class="fas fa-eye"></i> 1.5k views</span>
+                            <span><i class="fas fa-heart"></i> 189 likes</span>
+                        </div>
+                    </div>
+
+                    <div class="fact-card" onclick="expandFact('whale-migration')">
+                        <div class="fact-icon whale">
+                            <i class="fas fa-fish"></i>
+                        </div>
+                        <h4>Whale Migration</h4>
+                        <p>Blue whales migrate through Sri Lankan waters, traveling up to 12,000 miles annually.</p>
+                        <div class="fact-meta">
+                            <span><i class="fas fa-eye"></i> 987 views</span>
+                            <span><i class="fas fa-heart"></i> 124 likes</span>
+                        </div>
+                    </div>
+
+                    <div class="fact-card" onclick="expandFact('mangrove-forests')">
+                        <div class="fact-icon mangrove">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <h4>Mangrove Protection</h4>
+                        <p>Mangrove forests protect coastlines and serve as nurseries for 75% of commercial fish species.</p>
+                        <div class="fact-meta">
+                            <span><i class="fas fa-eye"></i> 1.2k views</span>
+                            <span><i class="fas fa-heart"></i> 167 likes</span>
+                        </div>
+                    </div>
+
+                    <div class="fact-card" onclick="expandFact('ocean-temperature')">
+                        <div class="fact-icon temperature">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <h4>Ocean Temperature</h4>
+                        <p>The ocean absorbs 93% of excess heat from climate change, affecting marine ecosystems globally.</p>
+                        <div class="fact-meta">
+                            <span><i class="fas fa-eye"></i> 1.7k views</span>
+                            <span><i class="fas fa-heart"></i> 145 likes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Articles Page -->
+        <div id="articles-page" class="page">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('home-page')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Ocean Articles</h1>
+                <div class="header-actions">
+                    <button class="filter-button" onclick="openModal('filter-modal')">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                    <button class="search-button" onclick="openModal('search-modal')">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="articles-content">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterArticles('all')">All</button>
+                    <button class="filter-tab" onclick="filterArticles('conservation')">Conservation</button>
+                    <button class="filter-tab" onclick="filterArticles('pollution')">Pollution</button>
+                    <button class="filter-tab" onclick="filterArticles('wildlife')">Wildlife</button>
+                    <button class="filter-tab" onclick="filterArticles('local')">Local</button>
+                </div>
+
+                <div class="articles-list">
+                    <div class="article-card featured" onclick="openArticle('kelani-pollution')">
+                        <div class="article-image pollution-bg">
+                            <div class="article-overlay">
+                                <div class="article-category pollution">Pollution Alert</div>
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <h3>Kelani River Ocean Pollution Crisis</h3>
+                            <p>Industrial waste from the Kelani River is severely affecting marine ecosystems along Colombo's coastline, threatening local fisheries and tourism.</p>
+                            <div class="article-tags">
+                                <span class="tag pollution">Pollution</span>
+                                <span class="tag sri-lanka">Sri Lanka</span>
+                                <span class="tag urgent">Urgent</span>
+                            </div>
+                            <div class="article-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>8 min read</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>3.2k views</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Dec 14</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card" onclick="openArticle('hikkaduwa-coral')">
+                        <div class="article-image coral-bg">
+                            <div class="article-overlay">
+                                <div class="article-category conservation">Conservation</div>
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <h3>Hikkaduwa Coral Sanctuary Recovery</h3>
+                            <p>Successful coral restoration efforts in Hikkaduwa Marine National Park show promising signs of ecosystem recovery.</p>
+                            <div class="article-tags">
+                                <span class="tag conservation">Conservation</span>
+                                <span class="tag success">Success Story</span>
+                                <span class="tag coral">Coral Reefs</span>
+                            </div>
+                            <div class="article-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>6 min read</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>2.8k views</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Dec 13</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card" onclick="openArticle('turtle-nesting')">
+                        <div class="article-image turtle-bg">
+                            <div class="article-overlay">
+                                <div class="article-category wildlife">Wildlife</div>
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <h3>Sea Turtle Nesting Season Begins</h3>
+                            <p>Conservation efforts at Kosgoda and Rekawa beaches prepare for the annual sea turtle nesting season.</p>
+                            <div class="article-tags">
+                                <span class="tag wildlife">Wildlife</span>
+                                <span class="tag conservation">Conservation</span>
+                                <span class="tag turtles">Sea Turtles</span>
+                            </div>
+                            <div class="article-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>5 min read</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>2.1k views</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Dec 12</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card" onclick="openArticle('whale-watching')">
+                        <div class="article-image whale-bg">
+                            <div class="article-overlay">
+                                <div class="article-category wildlife">Wildlife</div>
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <h3>Responsible Whale Watching Guidelines</h3>
+                            <p>New regulations for whale watching in Mirissa and Kalpitiya to protect migrating whale populations.</p>
+                            <div class="article-tags">
+                                <span class="tag wildlife">Wildlife</span>
+                                <span class="tag tourism">Tourism</span>
+                                <span class="tag whales">Whales</span>
+                            </div>
+                            <div class="article-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>7 min read</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>1.9k views</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Dec 11</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="article-card" onclick="openArticle('plastic-alternatives')">
+                        <div class="article-image plastic-bg">
+                            <div class="article-overlay">
+                                <div class="article-category solution">Solutions</div>
+                            </div>
+                        </div>
+                        <div class="article-content">
+                            <h3>Plastic Alternatives for Sri Lankan Businesses</h3>
+                            <p>Local companies leading the way in sustainable packaging and plastic alternatives to reduce ocean pollution.</p>
+                            <div class="article-tags">
+                                <span class="tag solutions">Solutions</span>
+                                <span class="tag business">Business</span>
+                                <span class="tag sustainability">Sustainability</span>
+                            </div>
+                            <div class="article-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>9 min read</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-eye"></i>
+                                    <span>1.6k views</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Dec 10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Page -->
+        <div id="quiz-page" class="page">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('home-page')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Ocean Quiz</h1>
+                <div class="quiz-progress-indicator">
+                    <span class="progress-text">Question <span id="current-question">1</span> of <span id="total-questions">10</span></span>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="quiz-progress" style="width: 10%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="quiz-content">
+                <div class="quiz-container">
+                    <!-- Question 1 -->
+                    <div class="question-card active" data-question="1">
+                        <div class="question-header">
+                            <div class="question-icon">
+                                <i class="fas fa-globe-asia"></i>
+                            </div>
+                            <div class="question-category">Basic Knowledge</div>
+                        </div>
+                        <h3 class="question-title">What percentage of Earth's surface is covered by oceans?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="wrong" onclick="selectAnswer(this, false)">
+                                <span class="option-label">A</span>
+                                <span class="option-text">50%</span>
+                            </button>
+                            <button class="quiz-option" data-answer="correct" onclick="selectAnswer(this, true)">
+                                <span class="option-label">B</span>
+                                <span class="option-text">71%</span>
+                            </button>
+                            <button class="quiz-option" data-answer="wrong" onclick="selectAnswer(this, false)">
+                                <span class="option-label">C</span>
+                                <span class="option-text">85%</span>
+                            </button>
+                            <button class="quiz-option" data-answer="wrong" onclick="selectAnswer(this, false)">
+                                <span class="option-label">D</span>
+                                <span class="option-text">95%</span>
+                            </button>
+                        </div>
+                        <div class="question-hint">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>The ocean is Earth's dominant feature!</span>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="question-card" data-question="2">
+                        <div class="question-header">
+                            <div class="question-icon">
+                                <i class="fas fa-turtle"></i>
+                            </div>
+                            <div class="question-category">Sri Lankan Marine Life</div>
+                        </div>
+                        <h3 class="question-title">How many sea turtle species nest in Sri Lankan beaches?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="wrong" onclick="selectAnswer(this, false)">
+                                <span class="option-label">A</span>
+                                <span class="option-text">3 species</span>
+                            </button>
+                            <button class="quiz-option" data-answer="correct" onclick="selectAnswer(this, true)">
+                                <span class="option-label">B</span>
+                                <span class="option-text">5 species</span>
+                            </button>
+                            <button class="quiz-option" data-answer="wrong" onclick="selectAnswer(this, false)">
+                                <span class="option-label">C</span>
+                                <span class="option-text">7 species</span>
+                            </button>
+                            <button class="quiz-option" data-answer="wrong" onclick="selectAnswer(this, false)">
+                                <span class="option-label">D</span>
+                                <span class="option-text">9 species</span>
+                            </button>
+                        </div>
+                        <div class="question-hint">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>Sri Lanka is a critical nesting site!</span>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="question-card" data-question="3">
+                        <div class="question-header">
+                            <div class="question-icon">
+                                <i class="fas fa-recycle"></i>
+                            </div>
+                            <div class="question-category">Pollution Impact</div>
+                        </div>
+                        <h3 class="question-title">What do sea turtles often mistake plastic bags for?</h3>
+                        <div class="quiz-options">
+                            <button class="quiz-option" data-answer="wrong" onclick="selectAnswer(this, false)">
+                                <span class="option-label">A</span>
+                                <span class="option-text">Fish</span>
+                            </button>
+                            <button class="quiz-option" data-answer="correct" onclick="selectAnswer(this, true)">
+                                <span class="option-label">B</span>
+                                <span class="option-text">Jellyfish</span>
+                            </button>
+                            <button class="quiz-option" data-answer="wrong" onclick="selectAnswer(this, false)">
+                                <span class="option-label">C</span>
+                                <span class="option-text">Seaweed</span>
+                            </button>
+                            <button class="quiz-option" data-answer="wrong" onclick="selectAnswer(this, false)">
+                                <span class="option-label">D</span>
+                                <span class="option-text">Coral</span>
+                            </button>
+                        </div>
+                        <div class="question-hint">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>This is a major threat to marine life!</span>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Results -->
+                    <div class="quiz-results" id="quiz-results" style="display: none;">
+                        <div class="results-container">
+                            <div class="result-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <h2>Quiz Completed!</h2>
+                            <div class="score-display">
+                                <div class="score-circle">
+                                    <span class="score-number" id="final-score">0</span>
+                                    <span class="score-total">/ 10</span>
+                                </div>
+                            </div>
+                            <div class="score-message" id="score-message">
+                                <h3>Ocean Explorer!</h3>
+                                <p>You're on your way to becoming an ocean conservation expert!</p>
+                            </div>
+                            <div class="quiz-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number" id="correct-answers">0</span>
+                                    <span class="stat-label">Correct</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="time-taken">0:00</span>
+                                    <span class="stat-label">Time</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-number" id="points-earned">0</span>
+                                    <span class="stat-label">Points</span>
+                                </div>
+                            </div>
+                            <div class="result-actions">
+                                <button class="quiz-action-btn primary" onclick="restartQuiz()">
+                                    <i class="fas fa-redo"></i>
+                                    Try Again
+                                </button>
+                                <button class="quiz-action-btn secondary" onclick="shareQuizResult()">
+                                    <i class="fas fa-share"></i>
+                                    Share Result
+                                </button>
+                                <button class="quiz-action-btn secondary" onclick="showPage('home-page')">
+                                    <i class="fas fa-home"></i>
+                                    Back to Home
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Page -->
+        <div id="report-page" class="page">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('home-page')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Report Pollution</h1>
+                <div class="header-actions">
+                    <button class="help-button" onclick="showHelp('reporting')">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="report-content">
+                <div class="report-types">
+                    <h3>What would you like to report?</h3>
+                    <div class="report-type-grid">
+                        <div class="report-type-card" onclick="startReport('plastic')">
+                            <div class="report-type-icon plastic">
+                                <i class="fas fa-bottle-water"></i>
+                            </div>
+                            <h4>Plastic Pollution</h4>
+                            <p>Plastic waste on beaches or in water</p>
+                        </div>
+                        <div class="report-type-card" onclick="startReport('chemical')">
+                            <div class="report-type-icon chemical">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <h4>Chemical Spills</h4>
+                            <p>Industrial or chemical contamination</p>
+                        </div>
+                        <div class="report-type-card" onclick="startReport('oil')">
+                            <div class="report-type-icon oil">
+                                <i class="fas fa-oil-can"></i>
+                            </div>
+                            <h4>Oil Spills</h4>
+                            <p>Oil contamination in water bodies</p>
+                        </div>
+                        <div class="report-type-card" onclick="startReport('wildlife')">
+                            <div class="report-type-icon wildlife">
+                                <i class="fas fa-turtle"></i>
+                            </div>
+                            <h4>Wildlife Emergency</h4>
+                            <p>Injured or trapped marine animals</p>
+                        </div>
+                        <div class="report-type-card" onclick="startReport('illegal')">
+                            <div class="report-type-icon illegal">
+                                <i class="fas fa-ban"></i>
+                            </div>
+                            <h4>Illegal Activities</h4>
+                            <p>Unauthorized dumping or fishing</p>
+                        </div>
+                        <div class="report-type-card" onclick="startReport('other')">
+                            <div class="report-type-icon other">
+                                <i class="fas fa-exclamation"></i>
+                            </div>
+                            <h4>Other Pollution</h4>
+                            <p>Other environmental concerns</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="recent-reports">
+                    <div class="section-header">
+                        <h3>Your Recent Reports</h3>
+                        <button class="see-all-btn" onclick="showPage('reported-page')">View All</button>
+                    </div>
+                    <div class="reports-list">
+                        <div class="report-item">
+                            <div class="report-status verified">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="report-details">
+                                <h4>Plastic bottles on Galle Face Beach</h4>
+                                <p>Verified by authorities • 2 days ago</p>
+                            </div>
+                            <div class="report-impact">
+                                <span class="impact-badge">+15 points</span>
+                            </div>
+                        </div>
+                        <div class="report-item">
+                            <div class="report-status pending">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="report-details">
+                                <h4>Oil spill near Colombo Harbor</h4>
+                                <p>Under review • 5 days ago</p>
+                            </div>
+                            <div class="report-impact">
+                                <span class="impact-badge pending">Pending</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Communities Page -->
+        <div id="communities-page" class="page">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('home-page')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Communities</h1>
+                <div class="header-actions">
+                    <button class="create-button" onclick="showCreateCommunity()">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="communities-content">
+                <div class="communities-tabs">
+                    <button class="tab-btn active" onclick="switchCommunitiesTab('joined')">Joined</button>
+                    <button class="tab-btn" onclick="switchCommunitiesTab('nearby')">Nearby</button>
+                    <button class="tab-btn" onclick="switchCommunitiesTab('trending')">Trending</button>
+                </div>
+                
+                <div class="communities-list">
+                    <div class="community-card" onclick="openCommunity('beach-cleanup-colombo')">
+                        <div class="community-header">
+                            <div class="community-avatar">
+                                <i class="fas fa-broom"></i>
+                            </div>
+                            <div class="community-info">
+                                <h3>Beach Cleanup Colombo</h3>
+                                <p>1,247 members • Active</p>
+                            </div>
+                            <div class="community-status joined">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="community-description">
+                            <p>Join weekly beach cleanup activities in Colombo and surrounding areas. Together we can keep our beaches clean!</p>
+                        </div>
+                        <div class="community-activity">
+                            <div class="activity-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Next cleanup: Saturday 9 AM</span>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Galle Face Beach</span>
+                            </div>
+                        </div>
+                        <div class="community-stats">
+                            <div class="stat">
+                                <span class="stat-number">156</span>
+                                <span class="stat-label">This week</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">2.4k</span>
+                                <span class="stat-label">Total members</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="community-card" onclick="openCommunity('turtle-conservation')">
+                        <div class="community-header">
+                            <div class="community-avatar">
+                                <i class="fas fa-turtle"></i>
+                            </div>
+                            <div class="community-info">
+                                <h3>Sea Turtle Conservation</h3>
+                                <p>892 members • Very Active</p>
+                            </div>
+                            <div class="community-status">
+                                <button class="join-btn" onclick="joinCommunity(event, 'turtle-conservation')">Join</button>
+                            </div>
+                        </div>
+                        <div class="community-description">
+                            <p>Dedicated to protecting sea turtle nesting sites and educating communities about turtle conservation.</p>
+                        </div>
+                        <div class="community-activity">
+                            <div class="activity-item">
+                                <i class="fas fa-users"></i>
+                                <span>Monthly meetup in Kosgoda</span>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-graduation-cap"></i>
+                                <span>Educational workshops</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campaigns Page -->
+        <div id="campaigns-page" class="page">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('home-page')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Campaigns</h1>
+                <div class="header-actions">
+                    <button class="create-button" onclick="showPage('add-campaign-page')">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="campaigns-content">
+                <div class="featured-campaign">
+                    <div class="campaign-image ocean-cleanup-bg">
+                        <div class="campaign-overlay">
+                            <div class="campaign-badge featured">Featured</div>
+                        </div>
+                    </div>
+                    <div class="campaign-content">
+                        <h2>Clean Ocean Challenge 2024</h2>
+                        <p>Join thousands of ocean guardians in the largest beach cleanup campaign in Sri Lankan history.</p>
+                        <div class="campaign-progress">
+                            <div class="progress-info">
+                                <span>2,847 participants</span>
+                                <span>Goal: 5,000</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 57%"></div>
+                            </div>
+                        </div>
+                        <div class="campaign-actions">
+                            <button class="campaign-btn primary" onclick="joinCampaign('clean-ocean-2024')">
+                                <i class="fas fa-handshake"></i>
+                                Join Campaign
+                            </button>
+                            <button class="campaign-btn secondary" onclick="shareCampaign('clean-ocean-2024')">
+                                <i class="fas fa-share"></i>
+                                Share
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="campaigns-list">
+                    <h3>Active Campaigns</h3>
+                    
+                    <div class="campaign-card" onclick="viewCampaign('plastic-free-week')">
+                        <div class="campaign-icon plastic-free">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="campaign-info">
+                            <h4>Plastic-Free Week Challenge</h4>
+                            <p>Avoid single-use plastics for 7 days</p>
+                            <div class="campaign-meta">
+                                <span><i class="fas fa-users"></i> 1,234 joined</span>
+                                <span><i class="fas fa-calendar"></i> 3 days left</span>
+                            </div>
+                        </div>
+                        <div class="campaign-status">
+                            <button class="join-btn small">Join</button>
+                        </div>
+                    </div>
+                    
+                    <div class="campaign-card joined" onclick="viewCampaign('turtle-patrol')">
+                        <div class="campaign-icon turtle-patrol">
+                            <i class="fas fa-turtle"></i>
+                        </div>
+                        <div class="campaign-info">
+                            <h4>Turtle Nesting Patrol</h4>
+                            <p>Protect turtle nests during nesting season</p>
+                            <div class="campaign-meta">
+                                <span><i class="fas fa-users"></i> 456 joined</span>
+                                <span><i class="fas fa-calendar"></i> 2 months left</span>
+                            </div>
+                        </div>
+                        <div class="campaign-status joined">
+                            <i class="fas fa-check"></i>
+                            <span>Joined</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profile-page" class="page">
+            <div class="page-header">
+                <button class="back-button" onclick="showPage('home-page')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h1>Profile</h1>
+                <div class="header-actions">
+                    <button class="edit-button" onclick="editProfile()">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="settings-button" onclick="openSettings()">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <div class="avatar-image">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <button class="avatar-edit" onclick="changeProfilePicture()">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-info">
+                        <h2>Ocean Guardian</h2>
+                        <p>@oceanGuardian2024</p>
+                        <p class="profile-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Colombo, Sri Lanka
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="profile-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon reports">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Reports Made</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon points">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-number">156</span>
+                            <span class="stat-label">Points Earned</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon badges">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-number">8</span>
+                            <span class="stat-label">Badges</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon communities">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Communities</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-sections">
+                    <div class="profile-section">
+                        <h3>Achievements</h3>
+                        <div class="badges-grid">
+                            <div class="badge earned">
+                                <div class="badge-icon">
+                                    <i class="fas fa-flag"></i>
+                                </div>
+                                <div class="badge-info">
+                                    <h4>First Reporter</h4>
+                                    <p>Made your first pollution report</p>
+                                </div>
+                            </div>
+                            <div class="badge earned">
+                                <div class="badge-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="badge-info">
+                                    <h4>Quiz Master</h4>
+                                    <p>Scored 100% on ocean quiz</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-actions">
+                    <button class="profile-action-btn" onclick="shareProfile()">
+                        <i class="fas fa-share"></i>
+                        Share Profile
+                    </button>
+                    <button class="profile-action-btn danger" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <button class="nav-item" onclick="showPage('home-page')" aria-label="Home">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="showPage('facts-page')" aria-label="Learn">
+                <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                <span>Learn</span>
+            </button>
+            <button class="nav-item" onclick="showPage('report-page')" aria-label="Report">
+                <i class="fas fa-flag" aria-hidden="true"></i>
+                <span>Report</span>
+            </button>
+            <button class="nav-item" onclick="showPage('communities-page')" aria-label="Community">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <span>Community</span>
+            </button>
+            <button class="nav-item" onclick="showPage('profile-page')" aria-label="Profile">
+                <i class="fas fa-user" aria-hidden="true"></i>
+                <span>Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="mobile-script.js"></script>
+</body>
+</html>

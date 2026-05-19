@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save The Sea 2.0 - KDU Student Chapter</title>
+    <meta name="description" content="Complete mobile app for ocean conservation through awareness, eco-friendly habits, and inspiring action">
+    <meta name="theme-color" content="#3498db">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+</head>
+<body>
+    <div class="mobile-app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-content">
+                <div class="app-logo">
+                    <i class="fas fa-wave-square"></i>
+                </div>
+                <h1>Save The Sea 2.0</h1>
+                <p>KDU Student Chapter</p>
+                <div class="loading-spinner"></div>
+            </div>
+        </div>
+
+        <!-- Login Screen -->
+        <div id="login-screen" class="screen">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="app-logo">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h1>Welcome Back</h1>
+                    <p>Sign in to continue saving our oceans</p>
+                </div>
+                <form class="auth-form" onsubmit="login(event)">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email address" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="auth-button">
+                        <span>Sign In</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div class="auth-links">
+                    <a href="#" onclick="showScreen('forgot-screen')">Forgot Password?</a>
+                    <div class="divider">
+                        <span>Don't have an account?</span>
+                    </div>
+                    <button onclick="showScreen('signup-screen')" class="link-button">Create Account</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Signup Screen -->
+        <div id="signup-screen" class="screen">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <button class="back-button" onclick="showScreen('login-screen')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1>Join the Movement</h1>
+                    <p>Create your account to start making a difference</p>
+                </div>
+                <form class="auth-form" onsubmit="signup(event)">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" placeholder="Full name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email address" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-graduation-cap"></i>
+                        <select required>
+                            <option value="">Select Faculty</option>
+                            <option value="engineering">Engineering</option>
+                            <option value="medicine">Medicine</option>
+                            <option value="law">Law</option>
+                            <option value="management">Management</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" placeholder="Create password" required>
+                    </div>
+                    <button type="submit" class="auth-button">
+                        <span>Create Account</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+                <div class="auth-links">
+                    <button onclick="showScreen('login-screen')" class="link-button">Already have an account? Sign In</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Forgot Password Screen -->
+        <div id="forgot-screen" class="screen">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <button class="back-button" onclick="showScreen('login-screen')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <h1>Reset Password</h1>
+                    <p>Enter your email to receive reset instructions</p>
+                </div>
+                <form class="auth-form" onsubmit="forgotPassword(event)">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" placeholder="Email address" required>
+                    </div>
+                    <button type="submit" class="auth-button">
+                        <span>Send Reset Link</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main App Container -->
+        <div id="main-app" class="screen">
+            <!-- Home Screen -->
+            <div id="home-page" class="page active">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <div class="university-badge">
+                            <i class="fas fa-university"></i>
+                            <span>KDU Student Chapter</span>
+                        </div>
+                        <h1 class="hero-title">Save The Sea 2.0</h1>
+                        <p class="hero-subtitle">Protecting our oceans through awareness, action, and community</p>
+                        <button class="cta-button" onclick="showPage('act-page')">
+                            <i class="fas fa-wave-square"></i>
+                            Join the Movement
+                        </button>
+                    </div>
+                    <div class="hero-waves">
+                        <div class="wave wave1"></div>
+                        <div class="wave wave2"></div>
+                        <div class="wave wave3"></div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <button class="quick-action" onclick="showPage('facts-page')">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Daily Facts</span>
+                    </button>
+                    <button class="quick-action" onclick="showPage('articles-page')">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Articles</span>
+                    </button>
+                    <button class="quick-action" onclick="showPage('quiz-page')">
+                        <i class="fas fa-brain"></i>
+                        <span>Quiz</span>
+                    </button>
+                    <button class="quick-action" onclick="showPage('report-page')">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Report</span>
+                    </button>
+                </div>
+
+                <!-- Impact Dashboard -->
+                <div class="impact-dashboard">
+                    <h2 class="section-title">Your Impact</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="stat-number">1,250</h3>
+                                <p class="stat-label">Points</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="stat-number">15</h3>
+                                <p class="stat-label">Challenges</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 class="stat-number">8</h3>
+                                <p class="stat-label">Badges</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ocean Health Alerts -->
+                <div class="alerts-section">
+                    <h2 class="section-title">Ocean Health Alerts</h2>
+                    <div class="alerts-container">
+                        <div class="alert-card critical">
+                            <div class="alert-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h3 class="alert-title">Critical Plastic Pollution</h3>
+                                <p class="alert-description">8 million tons of plastic enter our oceans annually</p>
+                                <div class="alert-stats">
+                                    <span><i class="fas fa-fish-fins"></i> 700+ species affected</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> Sri Lankan waters at risk</span>
+                                </div>
+                                <span class="alert-severity">CRITICAL</span>
+                            </div>
+                        </div>
+                        <div class="alert-card warning">
+                            <div class="alert-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h3 class="alert-title">Ocean Temperature Rising</h3>
+                                <p class="alert-description">Indian Ocean temperatures 1.2°C above normal</p>
+                                <div class="alert-stats">
+                                    <span><i class="fas fa-coral"></i> Coral bleaching events</span>
+                                    <span><i class="fas fa-chart-line"></i> +0.3°C this year</span>
+                                </div>
+                                <span class="alert-severity">HIGH</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Learn Section -->
+        <section id="learn" class="tab-content">
+            <div class="section-header">
+                <h2 class="section-title">Educational Content</h2>
+                <p class="section-subtitle">Learn about ocean conservation and marine ecosystems</p>
+            </div>
+            
+            <div class="articles-grid">
+                <article class="article-card featured">
+                    <div class="article-image">
+                        <div class="article-placeholder ocean-pollution">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tags">
+                            <span class="tag pollution">Pollution</span>
+                            <span class="tag sri-lanka">Sri Lanka</span>
+                        </div>
+                        <h3 class="article-title">Kelani River to Ocean Pollution</h3>
+                        <p class="article-summary">How industrial waste from Kelani River affects marine ecosystems along Colombo's coastline and what local communities can do.</p>
+                        <div class="article-meta">
+                            <span><i class="fas fa-clock"></i> 5 min read</span>
+                            <span><i class="fas fa-eye"></i> 1,247 views</span>
+                        </div>
+                        <button class="read-more-btn" onclick="openArticle('kelani-pollution')">Read More</button>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">
+                        <div class="article-placeholder coral-reef">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tags">
+                            <span class="tag ecosystem">Ecosystem</span>
+                            <span class="tag local">Local Impact</span>
+                        </div>
+                        <h3 class="article-title">Hikkaduwa Coral Sanctuary</h3>
+                        <p class="article-summary">Protecting Sri Lanka's precious coral reefs and the marine life that depends on these underwater gardens for survival.</p>
+                        <div class="article-meta">
+                            <span><i class="fas fa-clock"></i> 8 min read</span>
+                            <span><i class="fas fa-eye"></i> 892 views</span>
+                        </div>
+                        <button class="read-more-btn" onclick="openArticle('hikkaduwa-coral')">Read More</button>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-image">
+                        <div class="article-placeholder turtle-conservation">
+                            <i class="fas fa-turtle"></i>
+                        </div>
+                    </div>
+                    <div class="article-content">
+                        <div class="article-tags">
+                            <span class="tag wildlife">Wildlife</span>
+                            <span class="tag conservation">Conservation</span>
+                        </div>
+                        <h3 class="article-title">Sea Turtle Nesting Sites</h3>
+                        <p class="article-summary">Protecting nesting beaches in Kosgoda and Rekawa where endangered sea turtles come to lay their eggs.</p>
+                        <div class="article-meta">
+                            <span><i class="fas fa-clock"></i> 6 min read</span>
+                            <span><i class="fas fa-eye"></i> 1,156 views</span>
+                        </div>
+                        <button class="read-more-btn" onclick="openArticle('turtle-nesting')">Read More</button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Act Section -->
+        <section id="act" class="tab-content">
+            <div class="section-header">
+                <h2 class="section-title">Active Challenges</h2>
+                <p class="section-subtitle">Take part in ocean conservation challenges</p>
+            </div>
+            
+            <div class="challenges-grid">
+                <div class="challenge-card active">
+                    <div class="challenge-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="challenge-info">
+                            <h3 class="challenge-title">Plastic Free Week</h3>
+                            <p class="challenge-category">Lifestyle Challenge</p>
+                        </div>
+                        <div class="challenge-difficulty easy">
+                            <span>Easy</span>
+                        </div>
+                    </div>
+                    <div class="challenge-content">
+                        <p class="challenge-description">Avoid single-use plastics for 7 days and document your eco-friendly alternatives</p>
+                        <div class="challenge-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 60%"></div>
+                            </div>
+                            <span class="progress-text">4/7 days completed</span>
+                        </div>
+                        <div class="challenge-rewards">
+                            <span class="reward-points"><i class="fas fa-star"></i> 200 points</span>
+                            <span class="reward-badge"><i class="fas fa-medal"></i> Eco Warrior</span>
+                        </div>
+                        <button class="challenge-btn continue">Continue Challenge</button>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-broom"></i>
+                        </div>
+                        <div class="challenge-info">
+                            <h3 class="challenge-title">Mount Lavinia Beach Cleanup</h3>
+                            <p class="challenge-category">Community Action</p>
+                        </div>
+                        <div class="challenge-difficulty medium">
+                            <span>Medium</span>
+                        </div>
+                    </div>
+                    <div class="challenge-content">
+                        <p class="challenge-description">Join the weekend cleanup at Mount Lavinia Beach organized by KDU students</p>
+                        <div class="challenge-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>89 KDU students</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-calendar"></i>
+                                <span>This Saturday 7AM</span>
+                            </div>
+                        </div>
+                        <div class="challenge-rewards">
+                            <span class="reward-points"><i class="fas fa-star"></i> 500 points</span>
+                            <span class="reward-badge"><i class="fas fa-medal"></i> Beach Hero</span>
+                        </div>
+                        <button class="challenge-btn start">Join Cleanup</button>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <div class="challenge-info">
+                            <h3 class="challenge-title">Ocean Photography</h3>
+                            <p class="challenge-category">Awareness Campaign</p>
+                        </div>
+                        <div class="challenge-difficulty easy">
+                            <span>Easy</span>
+                        </div>
+                    </div>
+                    <div class="challenge-content">
+                        <p class="challenge-description">Capture and share beautiful ocean moments to inspire others</p>
+                        <div class="challenge-requirements">
+                            <div class="requirement">
+                                <i class="fas fa-check"></i>
+                                <span>Take 5 ocean photos</span>
+                            </div>
+                            <div class="requirement">
+                                <i class="fas fa-check"></i>
+                                <span>Share with #SaveTheSeaLK</span>
+                            </div>
+                        </div>
+                        <div class="challenge-rewards">
+                            <span class="reward-points"><i class="fas fa-star"></i> 300 points</span>
+                            <span class="reward-badge"><i class="fas fa-medal"></i> Ocean Artist</span>
+                        </div>
+                        <button class="challenge-btn start">Start Challenge</button>
+                    </div>
+                </div>
+
+                <div class="challenge-card">
+                    <div class="challenge-header">
+                        <div class="challenge-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="challenge-info">
+                            <h3 class="challenge-title">Ocean Knowledge Quiz</h3>
+                            <p class="challenge-category">Education</p>
+                        </div>
+                        <div class="challenge-difficulty medium">
+                            <span>Medium</span>
+                        </div>
+                    </div>
+                    <div class="challenge-content">
+                        <p class="challenge-description">Test your knowledge about Sri Lankan marine life and conservation</p>
+                        <div class="challenge-stats">
+                            <div class="stat">
+                                <i class="fas fa-question-circle"></i>
+                                <span>20 questions</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>15 minutes</span>
+                            </div>
+                        </div>
+                        <div class="challenge-rewards">
+                            <span class="reward-points"><i class="fas fa-star"></i> 400 points</span>
+                            <span class="reward-badge"><i class="fas fa-medal"></i> Ocean Scholar</span>
+                        </div>
+                        <button class="challenge-btn start">Take Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Section -->
+        <section id="community" class="tab-content">
+            <div class="section-header">
+                <h2 class="section-title">Community</h2>
+                <p class="section-subtitle">Connect with fellow ocean conservationists</p>
+            </div>
+            
+            <div class="community-stats">
+                <div class="community-stat">
+                    <h3>2,847</h3>
+                    <p>KDU Members</p>
+                </div>
+                <div class="community-stat">
+                    <h3>15.2K</h3>
+                    <p>Kg Plastic Removed</p>
+                </div>
+                <div class="community-stat">
+                    <h3>23</h3>
+                    <p>Beaches Cleaned</p>
+                </div>
+            </div>
+
+            <div class="community-feed">
+                <div class="feed-item">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="feed-content">
+                        <div class="user-info">
+                            <h4>Chamika Perera</h4>
+                            <span class="user-badge">KDU Engineering</span>
+                        </div>
+                        <p>Amazing turnout at today's Galle Face cleanup! Collected 45kg of plastic waste with my battalion. 🌊♻️ #SaveTheSeaLK</p>
+                        <div class="feed-meta">
+                            <span><i class="fas fa-clock"></i> 2 hours ago</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Galle Face Green</span>
+                        </div>
+                        <div class="feed-actions">
+                            <button class="like-btn"><i class="fas fa-heart"></i> 47</button>
+                            <button class="comment-btn"><i class="fas fa-comment"></i> 12</button>
+                            <button class="share-btn"><i class="fas fa-share"></i> 8</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feed-item">
+                    <div class="user-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="feed-content">
+                        <div class="user-info">
+                            <h4>Nishani Silva</h4>
+                            <span class="user-badge">KDU Medicine</span>
+                        </div>
+                        <p>Spotted a group of dolphins near Mirissa today! 🐬 This is why we fight to keep our oceans clean. Every action counts!</p>
+                        <div class="feed-meta">
+                            <span><i class="fas fa-clock"></i> 5 hours ago</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Mirissa Beach</span>
+                        </div>
+                        <div class="feed-actions">
+                            <button class="like-btn"><i class="fas fa-heart"></i> 89</button>
+                            <button class="comment-btn"><i class="fas fa-comment"></i> 23</button>
+                            <button class="share-btn"><i class="fas fa-share"></i> 15</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feed-item event-announcement">
+                    <div class="event-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="feed-content">
+                        <div class="event-header">
+                            <h4>KDU Ocean Conservation Society</h4>
+                            <span class="event-badge">Event</span>
+                        </div>
+                        <p><strong>Turtle Nesting Protection</strong><br>Join us this weekend at Kosgoda Turtle Hatchery. Help protect nesting sites and release baby turtles! 🐢</p>
+                        <div class="event-details">
+                            <div class="event-detail">
+                                <i class="fas fa-calendar"></i>
+                                <span>Saturday, 7:00 AM</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Kosgoda, Bentota</span>
+                            </div>
+                            <div class="event-detail">
+                                <i class="fas fa-users"></i>
+                                <span>67 attending</span>
+                            </div>
+                        </div>
+                        <button class="join-event-btn">Join Event</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="tab-content">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="profile-info">
+                    <h2>Ocean Guardian</h2>
+                    <p>Member since March 2024</p>
+                </div>
+            </div>
+
+            <div class="profile-stats">
+                <div class="profile-stat">
+                    <h3>1,250</h3>
+                    <p>Total Points</p>
+                </div>
+                <div class="profile-stat">
+                    <h3>15</h3>
+                    <p>Challenges Completed</p>
+                </div>
+                <div class="profile-stat">
+                    <h3>8</h3>
+                    <p>Badges Earned</p>
+                </div>
+            </div>
+
+            <div class="badges-section">
+                <h3>Badges Earned</h3>
+                <div class="badges-grid">
+                    <div class="badge">
+                        <i class="fas fa-leaf"></i>
+                        <span>Eco Warrior</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-water"></i>
+                        <span>Ocean Protector</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-recycle"></i>
+                        <span>Recycling Hero</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-fish"></i>
+                        <span>Marine Life Advocate</span>
+                    </div>
+                </div>
+            </div>
+
+                            <div class="recent-activities">
+                    <h3>Recent Activities</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <span>Completed "Plastic Free Week" challenge</span>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <span>Earned 200 points</span>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-medal" aria-hidden="true"></i>
+                            <span>Unlocked "Eco Warrior" badge</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy and Settings -->
+                <div class="settings-section">
+                    <h3>Settings & Privacy</h3>
+                    <div class="settings-list">
+                        <button class="setting-item" onclick="showPrivacyModal()">
+                            <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                            <span>Privacy Policy</span>
+                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <button class="setting-item" onclick="showAccessibilitySettings()">
+                            <i class="fas fa-universal-access" aria-hidden="true"></i>
+                            <span>Accessibility Settings</span>
+                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                        <button class="setting-item" onclick="showNotificationSettings()">
+                            <i class="fas fa-bell" aria-hidden="true"></i>
+                            <span>Notifications</span>
+                            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+        </section>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+            <button class="nav-item active" onclick="switchTab('home')" aria-label="Home tab" aria-pressed="true">
+                <i class="fas fa-home" aria-hidden="true"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('learn')" aria-label="Learn tab" aria-pressed="false">
+                <i class="fas fa-book" aria-hidden="true"></i>
+                <span>Learn</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('act')" aria-label="Act tab" aria-pressed="false">
+                <i class="fas fa-hand-fist" aria-hidden="true"></i>
+                <span>Act</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('community')" aria-label="Community tab" aria-pressed="false">
+                <i class="fas fa-users" aria-hidden="true"></i>
+                <span>Community</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('profile')" aria-label="Profile tab" aria-pressed="false">
+                <i class="fas fa-user" aria-hidden="true"></i>
+                <span>Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
